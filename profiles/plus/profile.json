@@ -1,0 +1,10 @@
+{
+  "name": "plus",
+  "root": { "model": "openai/gpt-6-luna", "thinking": "max" },
+  "workers": { "model": "openai/gpt-6-luna", "thinking": "medium" },
+  "reviewer": { "model": "openai/gpt-6-astra", "thinking": "low", "readOnly": true },
+  "maxConcurrentSubagents": 4,
+  "roles": ["explorer", "worker", "tester", "researcher", "reviewer"],
+  "mcpServers": ["zjev-zrag"],
+  "liveWebRequiredForCurrentExternalFacts": true
+}
