@@ -1,0 +1,60 @@
+{
+  agents: {
+    defaults: {
+      model: {
+        primary: 'openai/gpt-6-luna',
+      },
+      thinkingDefault: 'max',
+      subagents: {
+        maxConcurrent: 4,
+        model: 'openai/gpt-6-luna',
+        thinking: 'medium',
+      },
+    },
+  },
+  // Keep existing plugin allow/deny policy. Install and verify this plugin first.
+  plugins: {
+    entries: {
+      searxng: {
+        enabled: true,
+        config: {
+          webSearch: {
+            baseUrl: '${SEARXNG_BASE_URL}',
+            categories: 'general,news',
+            language: 'en',
+          },
+        },
+      },
+    },
+  },
+  tools: {
+    web: {
+      search: {
+        provider: 'searxng',
+        maxResults: 10,
+        timeoutSeconds: 20,
+      },
+    },
+  },
+  // Set ZCLAW_RUNTIME_PATH to the repository's path inside the Gateway container.
+  skills: {
+    load: {
+      extraDirs: ['${ZCLAW_RUNTIME_PATH}/skills'],
+    },
+  },
+  // Set endpoint and token variables in the Gateway's private environment.
+  mcp: {
+    servers: {
+      'zjev-zrag': {
+        command: '/usr/bin/python3',
+        args: ['${ZCLAW_RUNTIME_PATH}/mcp/zjev_zrag_mcp.py'],
+        env: {
+          ZRAG_API_URL: '${ZRAG_API_URL}',
+          ZJEV_API_URL: '${ZJEV_API_URL}',
+          Z_RAG_API_TOKEN: '${Z_RAG_API_TOKEN}',
+          ZJEV_API_TOKEN: '${ZJEV_API_TOKEN}',
+        },
+      },
+    },
+  },
+}
