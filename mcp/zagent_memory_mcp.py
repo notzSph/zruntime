@@ -14,8 +14,8 @@ from pathlib import Path
 from typing import Any
 
 
-ZRAG_URL = os.environ.get("ZRAG_API_URL", "http://api:8200").rstrip("/")
-MEMORY_COLLECTION = "zclaw-memory"
+ZRAG_URL = os.environ.get("ZRAG_API_URL", "http://zrag-api:8200").rstrip("/")
+MEMORY_COLLECTION = os.environ.get("ZRAG_MEMORY_COLLECTION", "zagent-memory")
 
 TOOLS = [
     {
@@ -187,7 +187,7 @@ def main() -> None:
             _reply(request_id, {
                 "protocolVersion": "2024-11-05",
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "zclaw-private-memory", "version": "1.0.0"},
+                "serverInfo": {"name": "zagent-memory", "version": "1.0.0"},
             })
         elif method == "ping":
             _reply(request_id, {})
