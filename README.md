@@ -32,7 +32,7 @@ These are target settings, not guarantees of account access or model routing. Ve
 - `profiles/plus/profile.json`: declarative profile manifest.
 - `profiles/plus/gateway.patch.json5`: proposed Gateway configuration patch.
 - `mcp/zjev_zrag_mcp.py`: bounded zRAG retrieval and zJev analysis server.
-- `mcp/zjev_zrag_memory_mcp.py`: private-session memory server code. It is not registered in the current patch.
+- `mcp/zagent_memory_mcp.py`: private-session `zagent-memory` retrieval server. It defaults to the `zagent-memory` collection; set `ZRAG_MEMORY_COLLECTION` in the private runtime environment to use a deployment-specific collection such as JayZoo's existing `jayzoo-memory`.
 - `guides/`: workflow, deployment, and usage guidance.
 - `scripts/usage/token_usage.py`: summarizes a saved Gateway `sessions.usage` report.
 - `scripts/test/validate.sh` and `tests/`: package checks.
@@ -40,7 +40,7 @@ These are target settings, not guarantees of account access or model routing. Ve
 
 ## Deployment boundaries
 
-The patch uses `${ZCLAW_RUNTIME_PATH}` for its skill and MCP script locations. Set it to the repository path as mounted inside the Gateway container. Set `SEARXNG_BASE_URL`, `ZRAG_API_URL`, and `ZJEV_API_URL` to verified container-reachable endpoints, and supply `Z_RAG_API_TOKEN` and `ZJEV_API_TOKEN` through the Gateway’s private environment. Host and workspace checkout paths are not automatically available inside the Gateway container.
+The patch uses `${ZCLAW_RUNTIME_PATH}` for its skill and MCP script locations. Set it to the repository path as mounted inside the Gateway container. Set `SEARXNG_BASE_URL`, `ZRAG_API_URL`, and `ZJEV_API_URL` to verified container-reachable endpoints, and supply `Z_RAG_API_TOKEN` and `ZJEV_API_TOKEN` through the Gateway’s private environment. For the separate private memory adapter, also set `ZRAG_MEMORY_COLLECTION` to the same slug configured for zRAG. Host and workspace checkout paths are not automatically available inside the Gateway container.
 
 The MCP process requires reachable zRAG and zJev endpoints and private credentials supplied through the Gateway environment. Keep tokens and live Gateway configuration out of this repository. The patch leaves endpoint values to verified environment variables because Docker network aliases are deployment-specific.
 

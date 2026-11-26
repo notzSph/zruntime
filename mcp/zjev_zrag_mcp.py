@@ -17,7 +17,7 @@ import urllib.request
 from typing import Any
 
 
-ZRAG_URL = os.environ.get("ZRAG_API_URL", "http://api:8200").rstrip("/")
+ZRAG_URL = os.environ.get("ZRAG_API_URL", "http://zrag-api:8200").rstrip("/")
 ZJEV_URL = os.environ.get("ZJEV_API_URL", "http://zjev-api:8300").rstrip("/")
 
 
